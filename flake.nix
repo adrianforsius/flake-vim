@@ -36,8 +36,7 @@
     nixvim = inputs.nixvim.legacyPackages.${system};
     nvim = nixvim.makeNixvimWithModule {
       inherit pkgs;
-      # module = [(import ./config.nix )];
-      module = ./config.nix;
+      module = ./config;
     };
   in {
     checks = {
@@ -47,13 +46,8 @@
       };
     };
 
-    # apps.nvim = flake-utils.lib.mkApp {
-    #   drv = packages.pwnvim;
-    #   name = "pwnvim";
-    #   exePath = "/bin/nvim";
-    # };
-    # apps.default = apps.pwnvim;
     packages.default = nvim;
+    packages.full = nvim;
 
     devShells = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import inputs.nixpkgs {
@@ -65,11 +59,5 @@
         (import ./devenv.nix)
       ];
     });
-    # devShell.default = inputs.devenv.lib.mkShell {
-    #   inherit inputs pkgs;
-    #   modules = [
-    #     (import ./devenv.nix)
-    #   ];
-    # };
   });
 }
