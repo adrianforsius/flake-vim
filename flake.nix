@@ -8,10 +8,10 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    tree-sitter-nu = {
-      url = "github:nushell/tree-sitter-nu";
-      flake = false;
-    };
+    # tree-sitter-nu = {
+    #   url = "github:nushell/tree-sitter-nu";
+    #   flake = false;
+    # };
   };
 
   outputs = {
@@ -19,13 +19,6 @@
     flake-utils,
     ...
   } @ inputs: let
-    defaultSystems = [
-      # "aarch64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-      "x86_64-linux"
-    ];
-
     overlays = [
       (final: prev: {
         devenv = inputs.devenv.packages.${prev.system}.devenv;

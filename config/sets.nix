@@ -1,5 +1,82 @@
 {
   config = {
+    colorschemes.gruvbox.enable = true;
+
+    plugins.lualine.enable = true;
+    plugins.treesitter.enable = true;
+    plugins.luasnip = {
+      enable = true;
+      extraConfig = { enable_autosnippets = true; store_selection_keys = "<Tab>"; };
+    };
+
+
+    plugins.cmp_luasnip.enable = true;
+    # plugins.commentary.enable = true;
+
+    plugins.comment-nvim = {
+      enable = true;
+      mappings = {
+        basic = true;
+      };
+    };
+
+    plugins.fzf-lua = {
+      enable = true;
+      iconsEnabled = true;
+      keymaps = {
+        "<C-p>" = {
+           action = "git_files";
+           options = {
+             desc = "Fzf-Lua Git Files";
+             silent = true;
+           };
+           settings = {
+             winopts = {
+               height = 0.5;
+             };
+           };
+         };
+         "<C-l>" = "live_grep";
+         "<C-g>" = "grep";
+      };
+    };
+
+    plugins.lsp = {
+      enable = true;
+
+      servers = {
+        tsserver.enable = true;
+
+        lua-ls = {
+          enable = true;
+          settings.telemetry.enable = false;
+        };
+
+        rust-analyzer = {
+          installRustc = true;
+          enable = true;
+          installCargo = true;
+        };
+
+        gopls = {
+          enable = true;
+          autostart = true;
+        };
+      };
+    };
+
+    plugins.nvim-cmp = {
+      enable = true;
+      autoEnableSources = true;
+
+      sources = [
+        {name = "nvim_lsp";}
+        {name = "path";}
+        {name = "buffer";}
+        {name = "luasnip";}
+      ];
+    };
+
     options = {
       # Enable relative line numbers
       number = true;
