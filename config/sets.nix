@@ -1,25 +1,14 @@
+{pkgs, ...}:
 {
   config = {
     colorschemes.gruvbox.enable = true;
 
     plugins.lualine.enable = true;
     plugins.treesitter.enable = true;
-    plugins.luasnip = {
-      enable = true;
-      extraConfig = { enable_autosnippets = true; store_selection_keys = "<Tab>"; };
-    };
-
 
     plugins.cmp_luasnip.enable = true;
-    # plugins.commentary.enable = true;
-
-    plugins.comment-nvim = {
-      enable = true;
-      mappings = {
-        basic = true;
-      };
-    };
-
+    plugins.luasnip.enable = true;
+    plugins.comment-nvim.enable = true;
     plugins.fzf-lua = {
       enable = true;
       iconsEnabled = true;
@@ -65,6 +54,7 @@
       };
     };
 
+
     plugins.nvim-cmp = {
       enable = true;
       autoEnableSources = true;
@@ -75,12 +65,35 @@
         {name = "buffer";}
         {name = "luasnip";}
       ];
+      snippet.expand = "luasnip";
+
+      mapping = {
+        "<C-Space>" = "cmp.mapping.complete()";
+        "<CR>" = "cmp.mapping.confirm({ select = true })";
+        "<S-Tab>" = {
+          action = "cmp.mapping.select_prev_item()";
+          modes = [
+            "i"
+            "s"
+          ];
+        };
+        "<Tab>" = {
+          action = "cmp.mapping.select_next_item()";
+          modes = [
+            "i"
+            "s"
+          ];
+        };
+      };
     };
 
     options = {
       # Enable relative line numbers
       number = true;
       relativenumber = true;
+
+      # Make vim more useful
+      clipboard = "unnamedplus";
 
       # Set tabs to 2 spaces
       tabstop = 2;
@@ -104,6 +117,7 @@
 
       # Better splitting
       # splitbelow = true;
+
       # splitright = true;
 
       # Enable mouse mode
@@ -149,8 +163,8 @@
       # Place a column line
       # colorcolumn = "80";
 
-      # Reduce which-key timeout to 10ms
-      timeoutlen = 10;
+      # Set to 1000 because of comment-nvim bug: https://github.com/numToStr/Comment.nvim/issues/115#issuecomment-1032290098
+      timeoutlen = 1000;
 
       # Set encoding type
       encoding = "utf-8";
@@ -167,7 +181,7 @@
       ];
 
       # More space in the neovim command line for displaying messages
-      cmdheight = 0;
+      # cmdheight = 0;
 
       # We don't need to see things like INSERT anymore
       showmode = false;

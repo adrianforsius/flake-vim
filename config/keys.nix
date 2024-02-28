@@ -262,13 +262,10 @@
       key = "<C-c>";
       action = "<Esc>";
     }
-
-    {
-      mode = "n";
-      key = "Q";
-      action = "<nop>";
-    }
+    #{
+    #  mode = "n";
+    #  key = "Q";
+    #  action = "<nop>";
+    #}
   ];
-  extraConfigLua = ''
-  '';
 }
