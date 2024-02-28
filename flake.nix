@@ -24,33 +24,36 @@
         devenv = inputs.devenv.packages.${prev.system}.devenv;
       })
     ];
-  in flake-utils.lib.eachDefaultSystem (system: let
-    pkgs = nixpkgs.legacyPackages.${system};
-    nixvim = inputs.nixvim.legacyPackages.${system};
-    nvim = nixvim.makeNixvimWithModule {
-      inherit pkgs;
-      module = ./config;
-    };
-  in {
-    checks = {
-      default = nixpkgs.nixvimLib.check.mkTestDerivationFromNvim {
-        inherit nvim;
-        name = "A nixvim configuration";
+  in
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+      nixvim = inputs.nixvim.legacyPackages.${system};
+      nixvimLib = inputs.nixvim.lib.${system};
+      nvim = nixvim.makeNixvimWithModule {
+        inherit pkgs;
+        module = ./config;
       };
-    };
-
-    packages.default = nvim;
-    packages.full = nvim;
-
-    devShells = flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import inputs.nixpkgs {
-        inherit system overlays;
+    in {
+      checks = {
+        default = nixvimLib.check.mkTestDerivationFromNvim {
+          inherit nvim;
+          name = "A nixvim configuration";
+        };
       };
-    in inputs.devenv.lib.mkShell {
-      inherit inputs pkgs;
-      modules = [
-        (import ./devenv.nix)
-      ];
+
+      packages.default = nvim;
+      packages.full = nvim;
+
+      devShells.default = let
+        pkgs = import inputs.nixpkgs {
+          inherit system overlays;
+        };
+      in
+        inputs.devenv.lib.mkShell {
+          inherit inputs pkgs;
+          modules = [
+            (import ./devenv.nix)
+          ];
+        };
     });
-  });
 }

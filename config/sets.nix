@@ -1,9 +1,19 @@
-{pkgs, ...}:
-{
+{...}: {
   config = {
     colorschemes.gruvbox.enable = true;
 
-    plugins.lualine.enable = true;
+    plugins.lualine = {
+      globalstatus = true;
+      enable = true;
+      sections.lualine_c = [
+        {
+          extraConfig = {
+            path = 3;
+          };
+          name = "filename";
+        }
+      ];
+    };
     plugins.treesitter.enable = true;
 
     plugins.cmp_luasnip.enable = true;
@@ -14,19 +24,19 @@
       iconsEnabled = true;
       keymaps = {
         "<C-p>" = {
-           action = "git_files";
-           options = {
-             desc = "Fzf-Lua Git Files";
-             silent = true;
-           };
-           settings = {
-             winopts = {
-               height = 0.5;
-             };
-           };
-         };
-         "<C-l>" = "live_grep";
-         "<C-g>" = "grep";
+          action = "git_files";
+          options = {
+            desc = "Fzf-Lua Git Files";
+            silent = true;
+          };
+          settings = {
+            winopts = {
+              height = 0.5;
+            };
+          };
+        };
+        "<C-l>" = "live_grep";
+        "<C-g>" = "grep";
       };
     };
 
@@ -53,7 +63,6 @@
         };
       };
     };
-
 
     plugins.nvim-cmp = {
       enable = true;
@@ -98,7 +107,7 @@
       # Set tabs to 2 spaces
       tabstop = 2;
       softtabstop = 2;
-      showtabline = 2;
+      # showtabline = 2;
       expandtab = true;
 
       # Enable auto indenting and set it to spaces
@@ -133,7 +142,7 @@
       updatetime = 50; # faster completion (4000ms default)
 
       # Set completeopt to have a better completion experience
-      completeopt = [ "menuone" "noselect" "noinsert" ]; # mostly just for cmp
+      completeopt = ["menuone" "noselect" "noinsert"]; # mostly just for cmp
 
       # Enable persistent undo history
       swapfile = false;
@@ -185,7 +194,6 @@
 
       # We don't need to see things like INSERT anymore
       showmode = false;
-
     };
   };
 }
