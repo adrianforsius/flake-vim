@@ -1,5 +1,7 @@
 {...}: {
   config = {
+    # TODO: activate when ready
+    # vimAlias = true;
     colorschemes.gruvbox.enable = true;
 
     plugins.lualine = {
@@ -42,6 +44,16 @@
 
     plugins.lsp = {
       enable = true;
+
+      keymaps = {
+        lspBuf = {
+          K = "hover";
+          gD = "references";
+          gd = "definition";
+          gi = "implementation";
+          gt = "type_definition";
+        };
+      };
 
       servers = {
         tsserver.enable = true;
