@@ -109,6 +109,9 @@
     };
 
     options = {
+      showbreak = "↪";
+      list = true;
+      listchars = "tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨";
       # Enable relative line numbers
       number = true;
       relativenumber = true;
