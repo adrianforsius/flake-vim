@@ -20,7 +20,7 @@
 
     plugins.cmp_luasnip.enable = true;
     plugins.luasnip.enable = true;
-    plugins.comment-nvim.enable = true;
+    plugins.comment.enable = true;
     plugins.fzf-lua = {
       enable = true;
       iconsEnabled = true;
@@ -76,39 +76,12 @@
       };
     };
 
-    plugins.nvim-cmp = {
+    plugins.cmp = {
       enable = true;
       autoEnableSources = true;
-
-      sources = [
-        {name = "nvim_lsp";}
-        {name = "path";}
-        {name = "buffer";}
-        {name = "luasnip";}
-      ];
-      snippet.expand = "luasnip";
-
-      mapping = {
-        "<C-Space>" = "cmp.mapping.complete()";
-        "<CR>" = "cmp.mapping.confirm({ select = true })";
-        "<S-Tab>" = {
-          action = "cmp.mapping.select_prev_item()";
-          modes = [
-            "i"
-            "s"
-          ];
-        };
-        "<Tab>" = {
-          action = "cmp.mapping.select_next_item()";
-          modes = [
-            "i"
-            "s"
-          ];
-        };
-      };
     };
 
-    options = {
+    opts = {
       showbreak = "↪";
       list = true;
       listchars = "tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨";

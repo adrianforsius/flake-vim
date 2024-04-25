@@ -1,7 +1,6 @@
 {pkgs, ...}:
 with pkgs; {
   packages = [
-    rnix-lsp
     alejandra
     shellcheck
     shfmt
