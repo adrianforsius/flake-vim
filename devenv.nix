@@ -14,13 +14,13 @@ with pkgs; {
   pre-commit = {
     hooks = {
       alejandra.enable = true;
-      deadnix.enable = true;
       shfmt.enable = false;
-    };
 
-    settings = {
-      deadnix.edit = true;
-      deadnix.noLambdaArg = true;
+      deadnix.enable = true;
+      deadnix.settings = {
+        edit = true;
+        noLambdaArg = true;
+      };
     };
   };
 }
