@@ -35,6 +35,21 @@
     plugins.cmp_luasnip.enable = true;
     plugins.luasnip.enable = true;
     plugins.comment.enable = true;
+    # # TODO: telescope buffer solution messing with previous location (ctrl+o)
+    # plugins.telescope = {
+    #   enable = true;
+    #   keymaps = {
+    #     "<C-p>" = {
+    #       action = "git_files";
+    #       options = {
+    #         desc = "Telescope Git Files";
+    #         noremap = true;
+    #       };
+    #     };
+    #     "<leader>fg" = "live_grep";
+    #   };
+    #   extensions.file-browser.enable = true;
+    # };
     plugins.fzf-lua = {
       enable = true;
       iconsEnabled = true;
@@ -51,8 +66,9 @@
             };
           };
         };
-        "<C-l>" = "live_grep";
-        "<C-g>" = "grep";
+        # "<C-l>" = "live_grep";
+        # "<C-g>" = "grep";
+        "<leader>fg" = "live_grep";
       };
     };
 
