@@ -36,15 +36,19 @@
     plugins.luasnip.enable = true;
     plugins.comment.enable = true;
     plugins.telescope = {
+      # settings = {
+      #   file_ignore_patterns = [
+      #     "**/_gen/*"
+      #     "^__pycache__/"
+      #   ];
+      #   ripgrep_arguments = [
+      #     "rg" "--hidden"
+      #   ];
+      # };
       enable = true;
       keymaps = {
-        "<C-p>" = {
-          action = "git_files";
-          options = {
-            desc = "Telescope Git Files";
-            noremap = true;
-          };
-        };
+        "<C-p>" = "builtin";
+        "<leader>ff" = "find_files";
         "<leader>fg" = "live_grep";
       };
       extensions.file-browser.enable = true;
@@ -113,6 +117,10 @@
       servers = {
         tsserver.enable = true;
         nil_ls = {
+          enable = true;
+          autostart = true;
+        };
+        tailwindcss = {
           enable = true;
           autostart = true;
         };
