@@ -94,6 +94,7 @@
         };
       };
     };
+    plugins.lsp-format = {enable = true;};
     plugins.lsp = {
       enable = true;
 
@@ -139,6 +140,34 @@
         gopls = {
           enable = true;
           autostart = true;
+          # onAttach.function = ''
+          #   if not client.server_capabilities.semanticTokensProvider then
+          #     local semantic = client.config.capabilities.textDocument.semanticTokens
+          #       client.server_capabilities.semanticTokensProvider = {
+          #         full = true,
+          #         legend = {
+          #           tokenTypes = semantic.tokenTypes,
+          #           tokenModifiers = semantic.tokenModifiers,
+          #         },
+          #         range = true,
+          #       }
+          #   end
+          # '';
+          # filetypes = ["go" "gomod" "gowork" "gotmpl" ];
+          # settings = { };
+          extraOptions = {
+            settings = {
+              gopls = {
+                completeUnimported = true;
+                usePlaceholders = true;
+                staticcheck = true;
+                gofumpt = true;
+                analyses = {
+                  unusedparams = true;
+                };
+              };
+            };
+          };
         };
       };
     };
