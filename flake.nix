@@ -8,10 +8,6 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # tree-sitter-nu = {
-    #   url = "github:nushell/tree-sitter-nu";
-    #   flake = false;
-    # };
   };
 
   outputs = {
@@ -33,6 +29,14 @@
         inherit pkgs;
         module = ./config;
       };
+      # TODO: build nixvim with runtime dependencies
+      # app = pkgs.writeShellApplication {
+      #   name = "adrianforsiusneovim";
+      #   runtimeInputs = pkgs.gomodifytags;
+      #   text = ''
+      #     exec ${nvim}/bin/nvim $@"
+      #   '';
+      # };
     in {
       checks = {
         default = nixvimLib.check.mkTestDerivationFromNvim {

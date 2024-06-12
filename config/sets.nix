@@ -34,7 +34,9 @@
 
     plugins.cmp_luasnip.enable = true;
     plugins.luasnip.enable = true;
+
     plugins.comment.enable = true;
+    plugins.nvim-autopairs.enable = true;
     plugins.telescope = {
       # settings = {
       #   file_ignore_patterns = [
@@ -47,10 +49,12 @@
       # };
       enable = true;
       keymaps = {
-        "<C-p>" = "builtin";
-        "<leader>ff" = "find_files";
+        "<C-S-p>" = "builtin";
+        "<leader>gg" = "find_files";
         "<leader>fg" = "live_grep";
       };
+      # extensions.ui-select.enable = true;
+      extensions.frecency.enable = true;
       extensions.file-browser.enable = true;
     };
     # plugins.fzf-lua = {
@@ -86,14 +90,6 @@
     #   };
     # };
 
-    plugins.none-ls = {
-      enable = true;
-      sources = {
-        formatting = {
-          goimports.enable = true;
-        };
-      };
-    };
     plugins.lsp-format = {enable = true;};
     plugins.lsp = {
       enable = true;
@@ -106,6 +102,7 @@
           gi = "implementation";
           gt = "type_definition";
           "<leader>a" = "code_action";
+          ca = "code_action";
         };
         diagnostic = {
           "<leader>a" = "goto_next";
@@ -172,11 +169,40 @@
       };
     };
 
+    plugins.none-ls.enable = true;
+    plugins.none-ls = {
+      enableLspFormat = true;
+      sources = {
+        completion = {
+          luasnip.enable = true;
+          spell.enable = true;
+          tags.enable = true;
+        };
+        code_actions = {
+          gitrebase.enable = true;
+          gitsigns.enable = true;
+          gomodifytags.enable = true;
+          impl.enable = true;
+          refactoring.enable = true;
+          # proselint.enable = true;
+          # statix.enable = true;
+          # ts_node_action.enable = true;
+        };
+      };
+    };
+
+    plugins.cmp-dictionary.enable = true;
+    plugins.cmp-spell.enable = true;
+    plugins.cmp-cmdline.enable = true;
+    plugins.cmp-path.enable = true;
+    plugins.cmp-buffer.enable = true;
     plugins.cmp-vsnip.enable = true;
     plugins.cmp-treesitter.enable = true;
     plugins.cmp = {
       enable = true;
+
       autoEnableSources = true;
+
       settings = {
         mapping = {
           "<C-Space>" = "cmp.mapping.complete()";
@@ -187,10 +213,11 @@
           "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
         };
-        preselect = "cmp.PreselectMode.Item";
+        experimental = {ghost_text = true;};
         sources = [
           {
             name = "nvim_lsp";
+            keywordLength = 3;
           }
           # {
           #   name = "vsnip";
@@ -202,6 +229,9 @@
           #   name = "snippy";
           # }
           {
+            option = {
+              show_autosnippets = true;
+            };
             name = "luasnip";
           }
           {
@@ -211,34 +241,34 @@
             name = "buffer";
           }
         ];
-        completion = {
-          autocomplete = ["require('cmp.types').cmp.TriggerEvent.TextChanged"];
-          completeopt = "menu,menuone,noselect";
-          keyword_length = 1;
-        };
-        matching = {
-          disallow_fullfuzzy_matching = false;
-          disallow_fuzzy_matching = false;
-          disallow_partial_fuzzy_matching = true;
-          disallow_partial_matching = false;
-          disallow_prefix_unmatching = false;
-        };
+        # completion = {
+        #   autocomplete = [''require('cmp.types').cmp.TriggerEvent.TextChanged''];
+        #   completeopt = "menu,menuone,noselect";
+        #   keyword_length = 2;
+        #   keyword_pattern = ''[[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]]'';
+        # };
+        # matching = {
+        #   disallow_fullfuzzy_matching = false;
+        #   disallow_fuzzy_matching = false;
+        #   disallow_partial_fuzzy_matching = true;
+        #   disallow_partial_matching = false;
+        #   disallow_prefix_unmatching = false;
+        # };
         performance = {
           async_budget = 1;
           confirm_resolve_timeout = 80;
-          debounce = 60;
           fetching_timeout = 500;
           max_view_entries = 200;
           throttle = 30;
         };
-        confirmation.get_commit_characters = ''function(commit_characters) return commit_characters end'';
-        formatting = {
-          expandable_indicator = true;
-          fields = ["abbr" "kind" "menu"];
-          format = ''
-            function(_, vim_item) return vim_item end
-          '';
-        };
+        # confirmation.get_commit_characters = ''function(commit_characters) return commit_characters end'';
+        # formatting = {
+        #   expandable_indicator = true;
+        #   fields = ["abbr" "kind" "menu"];
+        #   format = ''
+        #     function(_, vim_item) return vim_item end
+        #   '';
+        # };
         snippet = {
           # vim.fn["vsnip#anonymous"](args.body)
           # require('snippy').expand_snippet(args.body)
@@ -249,40 +279,40 @@
             end
           '';
         };
-        sorting = {
-          comparators = [
-            "require('cmp.config.compare').offset"
-            "require('cmp.config.compare').exact"
-            "require('cmp.config.compare').score"
-            "require('cmp.config.compare').recently_used"
-            "require('cmp.config.compare').locality"
-            "require('cmp.config.compare').kind"
-            "require('cmp.config.compare').length"
-            "require('cmp.config.compare').order"
-          ];
-          priority_weight = 2;
-        };
-        view = {
-          entries = {
-            name = "custom";
-            selection_order = "top_down";
-          };
-          docs.auto_open = true;
-        };
-        window.completion = {
-          border = ["" "" "" "" "" "" "" ""];
-          col_offset = 0;
-          scrollbar = true;
-          scrolloff = 0;
-          side_padding = 1;
-          winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None";
-        };
-        window.documentation = {
-          border = ["" "" "" "" "" "" "" ""];
-          max_height = "math.floor(40 * (40 / vim.o.lines))";
-          max_width = "math.floor((40 * 2) * (vim.o.columns / (40 * 2 * 16 / 9)))";
-          winhighlight = "FloatBorder:NormalFloat";
-        };
+        # sorting = {
+        #   comparators = [
+        #     "require('cmp.config.compare').offset"
+        #     "require('cmp.config.compare').exact"
+        #     "require('cmp.config.compare').score"
+        #     "require('cmp.config.compare').recently_used"
+        #     "require('cmp.config.compare').locality"
+        #     "require('cmp.config.compare').kind"
+        #     "require('cmp.config.compare').length"
+        #     "require('cmp.config.compare').order"
+        #   ];
+        #   priority_weight = 2;
+        # };
+        # view = {
+        #   entries = {
+        #     name = "custom";
+        #     selection_order = "top_down";
+        #   };
+        #   docs.auto_open = true;
+        # };
+        # window.completion = {
+        #   border = ["" "" "" "" "" "" "" ""];
+        #   col_offset = 0;
+        #   scrollbar = true;
+        #   scrolloff = 0;
+        #   side_padding = 1;
+        #   winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None";
+        # };
+        # window.documentation = {
+        #   border = ["" "" "" "" "" "" "" ""];
+        #   max_height = "math.floor(40 * (40 / vim.o.lines))";
+        #   max_width = "math.floor((40 * 2) * (vim.o.columns / (40 * 2 * 16 / 9)))";
+        #   winhighlight = "FloatBorder:NormalFloat";
+        # };
       };
     };
 

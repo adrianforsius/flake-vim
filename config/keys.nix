@@ -22,7 +22,7 @@
     }
 
     {
-      mode = [ "n" "v" ];
+      mode = ["n" "v"];
       key = "<leader>g";
       action = "+git";
     }
@@ -46,19 +46,19 @@
     }
 
     {
-      mode = [ "n" "v" ];
+      mode = ["n" "v"];
       key = "<leader>d";
       action = "+debug";
     }
 
     {
-      mode = [ "n" "v" ];
+      mode = ["n" "v"];
       key = "<leader>c";
       action = "+code";
     }
 
     {
-      mode = [ "n" "v" ];
+      mode = ["n" "v"];
       key = "<leader>t";
       action = "+test";
     }
@@ -248,7 +248,7 @@
 
     # Delete to void register
     {
-      mode = [ "n" "v" ];
+      mode = ["n" "v"];
       key = "<leader>D";
       action = "\"_d";
       options = {
@@ -262,6 +262,12 @@
       key = "<C-c>";
       action = "<Esc>";
     }
+    {
+      mode = "n";
+      key = "<C-p>";
+      action = ":Telescope frecency<CR>";
+    }
+
     #{
     #  mode = "n";
     #  key = "Q";
