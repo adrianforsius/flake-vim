@@ -2,6 +2,14 @@
   config = {
     # TODO: activate when ready
     # vimAlias = true;
+    extraConfigLua = ''
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = {"*.go"},
+        callback = function()
+          vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+        end,
+      })
+    '';
     colorschemes.gruvbox.enable = true;
 
     plugins.lualine = {
@@ -50,7 +58,7 @@
       enable = true;
       keymaps = {
         "<C-S-p>" = "builtin";
-        "<leader>gg" = "find_files";
+        "<leader>ff" = "find_files";
         "<leader>fg" = "live_grep";
       };
       # extensions.ui-select.enable = true;
@@ -105,7 +113,7 @@
           ca = "code_action";
         };
         diagnostic = {
-          "<leader>a" = "goto_next";
+          # "<leader>a" = "goto_next";
           "<leader>j" = "goto_next";
           "<leader>b" = "open_float";
         };
@@ -156,7 +164,9 @@
             settings = {
               gopls = {
                 completeUnimported = true;
-                usePlaceholders = true;
+                # organizeImports = true;
+                # usePlaceholders = true; # TODO: enable when there is a cleaner solution to nixvim supertab
+                # goimports = true;
                 staticcheck = true;
                 gofumpt = true;
                 analyses = {
