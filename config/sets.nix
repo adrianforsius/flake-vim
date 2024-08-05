@@ -122,7 +122,7 @@
       # TODO: possibly use mason instead
       servers = {
         tsserver.enable = true;
-        nil_ls = {
+        nil-ls = {
           enable = true;
           autostart = true;
         };
