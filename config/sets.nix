@@ -13,16 +13,16 @@
     colorschemes.gruvbox.enable = true;
 
     plugins.lualine = {
-      globalstatus = true;
       enable = true;
-      sections.lualine_c = [
-        {
-          extraConfig = {
-            path = 3;
-          };
-          name = "filename";
-        }
-      ];
+      settings.options.globalstatus = true;
+      # settings.sections.lualine_c = [
+      #   {
+      #     extraConfig = {
+      #       path = 3;
+      #     };
+      #     name = "filename";
+      #   }
+      # ];
     };
     plugins.treesitter.enable = true;
     plugins.treesitter-context = {
@@ -45,6 +45,12 @@
 
     plugins.comment.enable = true;
     plugins.nvim-autopairs.enable = true;
+    plugins.mini = {
+      enable = true;
+      modules.icons = {};
+      mockDevIcons = true;
+    };
+
     plugins.telescope = {
       # settings = {
       #   file_ignore_patterns = [
@@ -121,8 +127,8 @@
 
       # TODO: possibly use mason instead
       servers = {
-        tsserver.enable = true;
-        nil-ls = {
+        ts_ls.enable = true;
+        nil_ls = {
           enable = true;
           autostart = true;
         };
@@ -131,12 +137,12 @@
           autostart = true;
         };
 
-        lua-ls = {
+        lua_ls = {
           enable = true;
           settings.telemetry.enable = false;
         };
 
-        rust-analyzer = {
+        rust_analyzer = {
           installRustc = true;
           enable = true;
           installCargo = true;
@@ -201,6 +207,7 @@
       };
     };
 
+    # plugins.web-devicons.enble = true;
     plugins.cmp-dictionary.enable = true;
     plugins.cmp-spell.enable = true;
     plugins.cmp-cmdline.enable = true;
